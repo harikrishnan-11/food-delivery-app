@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Foodora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        :root {
+            --ember: #FF6B2C;
+            --ember-light: #FF8C55;
+            --gold: #E8B96A;
+            --cream: #F5EFE6;
+            --surface: rgba(18, 12, 8, 0.72);
+            --surface-hover: rgba(28, 18, 10, 0.85);
+            --border: rgba(232, 185, 106, 0.18);
+            --text-primary: #F5EFE6;
+            --text-muted: rgba(245, 239, 230, 0.55);
+            --input-bg: rgba(255, 255, 255, 0.055);
+            --radius-card: 24px;
+            --shadow-card: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px var(--border);
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: #0d0806;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(13, 8, 6, 0.95) 0%, rgba(18, 12, 8, 0.9) 100%);
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-card);
+            animation: slideIn 0.6s ease;
+        }
+
+        .dashboard-header h1 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .dashboard-card {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            animation: fadeInUp 0.6s ease;
+            border: 1px solid var(--border);
+        }
+
+        .dashboard-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dashboard-card h3 i {
+            color: var(--ember);
+        }
+        .order-item {
+            background: var(--input-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+        .order-item h4 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 1rem;
+        }
+        .order-item p {
+            color: var(--text-muted);
+            margin: 4px 0 0 0;
+            font-size: 0.9rem;
+        }
+        .order-item small {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status.preparing {
+            background: var(--ember-glow);
+            color: var(--ember);
+        }
+        .status.delivered {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+        .status.out-for-delivery {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .btn-logout {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-weight: 500;
+        }
+        .btn-logout:hover {
+            background: var(--surface);
+            border-color: var(--border-focus);
+        }
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .favorite-item:last-child {
+            border-bottom: none;
+        }
+        .favorite-item i {
+            color: var(--ember);
+            font-size: 1.2rem;
+        }
+        .favorite-item span {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .wallet-balance {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .wallet-balance span {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--gold);
+            display: block;
+        }
+        .wallet-balance small {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .btn-add-money {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: linear-gradient(135deg, var(--ember) 0%, var(--ember-light) 100%);
+            color: var(--cream);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(255, 107, 44, 0.3);
+            transition: all var(--transition);
+        }
+        .btn-add-money:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 44, 0.4);
+        }
+        .notification-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        .notification-item p {
+            margin: 0 0 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .notification-item small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .profile-info strong {
+            color: var(--gold);
+        }
+        .btn-edit-profile {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-edit-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+        }
+        .review-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .stars {
+            color: var(--gold);
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+        }
+        .review-item p {
+            margin: 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .review-item small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .btn-support {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all var(--transition);
+        }
+        .btn-support:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 152, 0, 0.3);
+        }
+        .support-options {
+            text-align: center;
+        }
+        .support-options a {
+            color: var(--ember-light);
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+        .support-options a:hover {
+            color: var(--ember);
+        }
+        .review-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .stars {
+            color: var(--gold);
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+        }
+        .review-item p {
+            margin: 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .review-item small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .btn-support {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all var(--transition);
+        }
+        .btn-support:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 152, 0, 0.3);
+        }
+        .support-options {
+            text-align: center;
+        }
+        .support-options a {
+            color: var(--ember-light);
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+        .support-options a:hover {
+            color: var(--ember);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-user"></i> Customer Dashboard</h1>
+            <div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3><i class="fas fa-shopping-cart"></i> Current Orders</h3>
+                <div class="order-item">
+                    <div>
+                        <h4>Pizza Palace</h4>
+                        <p>Margherita Pizza - $15.99</p>
+                        <small style="color: rgba(255, 255, 255, 0.6);">Estimated delivery: 25 mins</small>
+                    </div>
+                    <span class="status preparing">Preparing</span>
+                </div>
+                <div class="order-item">
+                    <div>
+                        <h4>Burger Joint</h4>
+                        <p>Cheeseburger - $12.50</p>
+                        <small style="color: rgba(255, 255, 255, 0.6);">Delivered at 2:30 PM</small>
+                    </div>
+                    <span class="status delivered">Delivered</span>
+                </div>
+                <div class="order-item">
+                    <div>
+                        <h4>Sushi Express</h4>
+                        <p>California Roll - $18.00</p>
+                        <small style="color: rgba(255, 255, 255, 0.6);">Out for delivery</small>
+                    </div>
+                    <span class="status preparing">Out for Delivery</span>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-history"></i> Order History</h3>
+                <div class="order-item">
+                    <div>
+                        <h4>Taco Bell</h4>
+                        <p>Chicken Tacos (2) - $14.99</p>
+                        <small style="color: rgba(255, 255, 255, 0.6);">Yesterday</small>
+                    </div>
+                    <span class="status delivered">Delivered</span>
+                </div>
+                <div class="order-item">
+                    <div>
+                        <h4>Italian Kitchen</h4>
+                        <p>Pasta Carbonara - $16.50</p>
+                        <small style="color: rgba(255, 255, 255, 0.6);">2 days ago</small>
+                    </div>
+                    <span class="status delivered">Delivered</span>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-heart"></i> Favorites</h3>
+                <div class="favorite-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Pizza Palace</span>
+                </div>
+                <div class="favorite-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Burger Joint</span>
+                </div>
+                <div class="favorite-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Sushi Express</span>
+                </div>
+                <div class="favorite-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Taco Bell</span>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-wallet"></i> Wallet</h3>
+                <div class="wallet-balance">
+                    <span>$25.00</span>
+                    <small>Available Balance</small>
+                </div>
+                <button class="btn-add-money">Add Money</button>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-bell"></i> Notifications</h3>
+                <div class="notification-item">
+                    <p>Your order from Pizza Palace is ready!</p>
+                    <small>5 mins ago</small>
+                </div>
+                <div class="notification-item">
+                    <p>New restaurant: Thai Spice added to your area</p>
+                    <small>1 hour ago</small>
+                </div>
+                <div class="notification-item">
+                    <p>Rate your recent order from Burger Joint</p>
+                    <small>2 hours ago</small>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-user-edit"></i> Profile</h3>
+                <div class="profile-info">
+                    <p><strong>Name:</strong> John Doe</p>
+                    <p><strong>Email:</strong> john@example.com</p>
+                    <p><strong>Phone:</strong> +1 234 567 8900</p>
+                    <p><strong>Address:</strong> 123 Main St, City</p>
+                </div>
+                <button class="btn-edit-profile">Edit Profile</button>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-star"></i> Reviews & Ratings</h3>
+                <div class="review-item">
+                    <div class="stars">★★★★★</div>
+                    <p>"Amazing pizza, fast delivery!"</p>
+                    <small>Pizza Palace</small>
+                </div>
+                <div class="review-item">
+                    <div class="stars">★★★★☆</div>
+                    <p>"Good food, but delivery was late"</p>
+                    <small>Burger Joint</small>
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <h3><i class="fas fa-headset"></i> Support</h3>
+                <p>Need help? Contact our support team</p>
+                <button class="btn-support">Contact Support</button>
+                <div class="support-options">
+                    <a href="#">FAQ</a> | <a href="#">Live Chat</a> | <a href="#">Call Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function logout() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

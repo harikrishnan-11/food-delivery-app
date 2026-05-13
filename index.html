@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodora - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline id="background-video">
+  <source src="./Assets/Untitled design.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+    <main>
+
+        <div class="card-container">
+            <div class="card-header">
+                <div class="brand-pill">
+                    <span><img src="./Assets/Stackly logo-100kb.webp" alt=""></span>
+                </div>
+                <h1>Welcome back</h1>
+                <p>Login to order your favorite meals in seconds.</p>
+            </div>
+
+            <form class="auth-form">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label>Role</label>
+                    <select name="role" id="role"  required>
+                        <option value="" ></option>
+                        <option value="Customer">Customer</option>
+                        <option value="Delivery">Delivery Partner</option>
+                        <option value="Hotel">Hotel</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="password-field">
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <a href="./404.html">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="main-btn">LOG IN</button>
+
+                <div class="social-divider">or continue with</div>
+
+                <div class="social-row">
+                    <a href="./404.html">
+                        <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                    </a>
+                    <a href="./404.html">
+                        <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                    </a>
+                    <a href="./404.html">
+                        <button type="button" class="social-btn apple"><i class="fab fa-apple"></i></button>
+                    </a>
+                </div>
+
+                <div class="footer-note">
+                    Don’t have an account? <a href="sign.html">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        document.querySelector('.auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const role = document.getElementById('role').value;
+            if (role === 'Customer') {
+                window.location.href = 'Dashboard-Customer.html';
+            } else if (role === 'Delivery') {
+                window.location.href = 'Dashboard-DeliveryPartner.html';
+            } else if (role === 'Hotel') {
+                window.location.href = 'Dashboard-Hotel.html';
+            } else {
+                alert('Please select a role.');
+            }
+        });
+    </script>
+</body>
+</html>
