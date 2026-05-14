@@ -269,10 +269,13 @@
         .tool-buttons {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             gap: 12px;
+            text-align: center;
         }
         .tool-btn {
             padding: 12px;
+
             background: var(--input-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
@@ -280,6 +283,7 @@
             cursor: pointer;
             transition: all var(--transition);
             font-weight: 500;
+            text-align: center;
         }
         .tool-btn:hover {
             background: var(--surface-hover);
@@ -519,7 +523,10 @@
                 <div class="location-info">
                     <p>Currently at: 123 Delivery St, City</p>
                     <p>Next pickup: Pizza Palace - 0.5 km away</p>
-                    <button class="btn-update-location">Update Location</button>
+                    <a href="./404.html">
+
+                      <button class="btn-update-location">Update Location</button>
+                    </a>
                 </div>
             </div>
             <div class="dashboard-card">
@@ -540,9 +547,17 @@
             <div class="dashboard-card">
                 <h3><i class="fas fa-tools"></i> Tools & Support</h3>
                 <div class="tool-buttons">
-                    <button class="tool-btn">Report Issue</button>
-                    <button class="tool-btn">Contact Support</button>
-                    <button class="tool-btn">View Earnings History</button>
+                    <a href="./404.html">
+                      <button class="tool-btn">Report Issue</button>
+                    </a>                                        
+                    <a href="./404.html">
+
+                      <button class="tool-btn">Contact Support</button>
+                    </a>
+                      <a href="./404.html">
+                        <button class="tool-btn">View Earnings History</button>
+
+                      </a>
                 </div>
             </div>
         </div>
