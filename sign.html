@@ -62,9 +62,15 @@
     >
 </div>
                 <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
+    <label>Email Address</label>
+
+    <input
+        type="email"
+        id="emailAddress"
+        placeholder="Enter your email"
+        required
+    >
+</div>
                 <div class="input-group">
     <label>Password</label>
 
@@ -267,7 +273,45 @@ form.addEventListener('submit', function(e){
 
 });
 
+/* LIVE EMAIL VALIDATION */
 
+const emailInput =
+document.getElementById('emailAddress');
+
+emailInput.addEventListener('input', () => {
+
+    /* REMOVE OLD ERROR */
+
+    const existingError =
+    emailInput.parentElement
+    .querySelector('.error-message');
+
+    if(existingError){
+
+        existingError.remove();
+    }
+
+    const email =
+    emailInput.value.trim();
+
+    const emailPattern =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in)$/;
+
+    /* SHOW ERROR ONLY WHEN USER TYPES */
+
+    if(
+        email.length > 0 &&
+        !emailPattern.test(email)
+    ){
+
+        showError(
+            emailInput,
+            'Email must end with .com or .in'
+        );
+
+    }
+
+});
 /* SHOW ERROR */
 function showError(input, message){
 
