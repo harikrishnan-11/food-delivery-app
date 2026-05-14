@@ -26,7 +26,7 @@
             <form class="auth-form">
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="input-group">
                     <label>Role</label>
@@ -73,6 +73,8 @@
     <script>
         document.querySelector('.auth-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            sessionStorage.setItem('userEmail', email);
             const role = document.getElementById('role').value;
             if (role === 'Customer') {
                 window.location.href = 'Dashboard-Customer.html';
