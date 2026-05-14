@@ -308,6 +308,18 @@ main {
   width: 100%;
   padding-right: 48px;
 }
+/* REMOVE DEFAULT PASSWORD EYE ICON */
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear{
+    display:none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button{
+    visibility:hidden;
+    display:none !important;
+    pointer-events:none;
+}
 
 .password-field button {
   position: absolute;
@@ -493,7 +505,68 @@ filter var(--transition);
   cursor: pointer;
   user-select: none;
 }
+/* PASSWORD FIELD */
 
+.password-field{
+    position:relative;
+}
+
+.password-field input{
+    width:100%;
+    padding-right:55px;
+}
+
+/* TOGGLE PASSWORD BUTTON */
+
+.toggle-password{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+
+    border:none;
+    background:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+/* REMOVE DEFAULT EYE ICON */
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear{
+    display:none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button{
+    visibility:hidden;
+    display:none !important;
+    pointer-events:none;
+}
+/* ERROR MESSAGE */
+
+
+
+.error-message{
+    display:block;
+    margin-top:8px;
+    color:#ff6b6b;
+    font-size:13px;
+    font-weight:500;
+    padding-left:2px;
+}
+/* SELECT STYLE */
+
+select{
+    color:white;
+}
+
+select option{
+    color:black;
+}
 /* Custom checkbox */
 .terms-row input[type="checkbox"],
 .receive-updates input[type="checkbox"] {
