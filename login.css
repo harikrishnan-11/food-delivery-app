@@ -659,3 +659,70 @@ filter var(--transition);
     height: 40px;
   }
 }
+
+/* PASSWORD FIELD */
+
+.password-field{
+    position:relative;
+}
+
+.password-field input{
+    width:100%;
+    padding-right:55px;
+}
+
+/* EYE BUTTON */
+
+.toggle-password{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+/* REMEMBER ME */
+
+.remember-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-top:-6px;
+    margin-bottom:18px;
+}
+
+.remember-me{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#fff;
+
+    font-size:14px;
+
+    cursor:pointer;
+}
+
+.remember-me input{
+    accent-color:#ff6b2c;
+    cursor:pointer;
+}
+
+/* SELECT PLACEHOLDER */
+
+select{
+    color:white;
+}
+
+select option{
+    color:black;
+}

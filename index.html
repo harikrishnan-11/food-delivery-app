@@ -31,22 +31,41 @@
                 <div class="input-group">
                     <label>Role</label>
                     <select name="role" id="role"  required>
-                        <option value="" ></option>
+                        <option value="" selected disabled>Select Role</option>
                         <option value="Customer">Customer</option>
                         <option value="Delivery">Delivery Partner</option>
                         <option value="Hotel">Hotel</option>
                     </select>
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <div class="password-field">
-                        <input type="password" placeholder="Enter your password" required>
-                    </div>
-                </div>
+               <div class="input-group">
+    <label>Password</label>
 
-                <div class="action-row">
-                    <a href="./404.html">Forgot Password?</a>
-                </div>
+    <div class="password-field">
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button type="button" class="toggle-password" id="togglePassword">
+            <i class="fas fa-eye"></i>
+        </button>
+
+    </div>
+</div>
+<div class="action-row remember-row">
+
+    <label class="remember-me">
+        <input type="checkbox" id="rememberMe">
+        <span>Remember Me</span>
+    </label>
+
+    <a href="./404.html">Forgot Password?</a>
+
+</div>
+    
 
                 <button type="submit" class="main-btn">LOG IN</button>
 
@@ -86,6 +105,32 @@
                 alert('Please select a role.');
             }
         });
+        /* PASSWORD SHOW/HIDE */
+
+const togglePassword =
+document.getElementById('togglePassword');
+
+const password =
+document.getElementById('password');
+
+togglePassword.addEventListener('click', () => {
+
+    if(password.type === 'password'){
+
+        password.type = 'text';
+
+        togglePassword.innerHTML =
+        '<i class="fas fa-eye-slash"></i>';
+
+    } else {
+
+        password.type = 'password';
+
+        togglePassword.innerHTML =
+        '<i class="fas fa-eye"></i>';
+    }
+
+});
     </script>
 </body>
 </html>
