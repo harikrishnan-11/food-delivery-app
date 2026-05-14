@@ -180,15 +180,41 @@ function setupPasswordToggle(buttonId, inputId){
 }
 /* MOBILE NUMBER VALIDATION */
 
-/* ONLY NUMBERS FOR PHONE */
+/* PHONE NUMBER LIVE VALIDATION */
 
 const phoneInput =
 document.getElementById('phoneNumber');
 
 phoneInput.addEventListener('input', () => {
 
+    /* REMOVE OLD ERROR */
+
+    const existingError =
+    phoneInput.parentElement
+    .querySelector('.error-message');
+
+    if(existingError){
+
+        existingError.remove();
+    }
+
+    /* REMOVE NON-NUMBERS */
+
     phoneInput.value =
     phoneInput.value.replace(/\D/g, '');
+
+    /* SHOW ERROR IF MORE THAN 10 DIGITS */
+
+    if(phoneInput.value.length > 10){
+
+        showError(
+            phoneInput,
+            'Mobile number should not exceed 10 digits.'
+        );
+
+        phoneInput.value =
+        phoneInput.value.slice(0,10);
+    }
 
 });
 /* ENABLE PASSWORD TOGGLES */
