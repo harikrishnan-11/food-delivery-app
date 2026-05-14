@@ -573,23 +573,89 @@ filter var(--transition);
 @media (max-width: 520px) {
   .card-container,
   .glass-card {
-    padding: 36px 24px 32px;
-    border-radius: 20px;
+    padding: 32px 20px 28px;
+    border-radius: 18px;
+    max-width: 100%;
   }
 
   .card-header h1 {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
+  }
+
+  .card-header p {
+    font-size: 0.85rem;
+  }
+
+  .auth-form {
+    gap: 14px;
+  }
+
+  .input-group {
+    gap: 6px;
+  }
+
+  .input-group input,
+  .input-group select {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+
+  .main-btn {
+    padding: 12px 0;
+    font-size: 0.95rem;
+  }
+
+  .social-row {
+    gap: 10px;
   }
 
   .social-btn {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 440px) {
+  .card-container,
+  .glass-card {
+    padding: 28px 18px 24px;
+  }
+
+  .card-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .card-header p {
+    font-size: 0.82rem;
+  }
+
+  .main-btn {
+    padding: 11px 0;
   }
 }
 
 @media (max-width: 360px) {
   .card-container,
   .glass-card {
-    padding: 28px 18px 28px;
+    padding: 24px 14px 22px;
+  }
+
+  .card-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .card-header p {
+    font-size: 0.8rem;
+  }
+
+  .input-group input,
+  .input-group select {
+    padding: 10px 12px;
+    font-size: 0.86rem;
+  }
+
+  .social-btn {
+    width: 40px;
+    height: 40px;
   }
 }
