@@ -25,16 +25,22 @@
 
             <form class="auth-form">
                 <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                </div>
+    <label>Email Address</label>
+
+    <input
+        type="email"
+        id="emailAddress"
+        placeholder="Enter your email"
+        required
+    >
+</div>
                 <div class="input-group">
                     <label>Role</label>
                     <select name="role" id="role"  required>
                         <option value="" selected disabled>Select Role</option>
                         <option value="Customer">Customer</option>
+                        <option value="Hotel">Hotel Admin</option>
                         <option value="Delivery">Delivery Partner</option>
-                        <option value="Hotel">Hotel</option>
                     </select>
                 </div>
                <div class="input-group">
@@ -91,22 +97,40 @@
         </div>
     </main>
     <script>
-        document.querySelector('.auth-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            sessionStorage.setItem('userEmail', email);
-            const role = document.getElementById('role').value;
-            if (role === 'Customer') {
-                window.location.href = 'Dashboard-Customer.html';
-            } else if (role === 'Delivery') {
-                window.location.href = 'Dashboard-DeliveryPartner.html';
-            } else if (role === 'Hotel') {
-                window.location.href = 'Dashboard-Hotel.html';
-            } else {
-                alert('Please select a role.');
-            }
-        });
-        /* PASSWORD SHOW/HIDE */
+document.querySelector('.auth-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email =
+    document.getElementById('emailAddress').value;
+
+    sessionStorage.setItem('userEmail', email);
+
+    const role =
+    document.getElementById('role').value;
+
+    if (role === 'Customer') {
+
+        window.location.href =
+        'Dashboard-Customer.html';
+
+    } else if (role === 'Delivery') {
+
+        window.location.href =
+        'Dashboard-DeliveryPartner.html';
+
+    } else if (role === 'Hotel') {
+
+        window.location.href =
+        'Dashboard-Hotel.html';
+
+    } else {
+
+        alert('Please select a role.');
+    }
+});
+
+
+/* PASSWORD SHOW/HIDE */
 
 const togglePassword =
 document.getElementById('togglePassword');
@@ -132,6 +156,65 @@ togglePassword.addEventListener('click', () => {
     }
 
 });
-    </script>
+
+
+/* EMAIL VALIDATION */
+
+const emailInput =
+document.getElementById('emailAddress');
+
+emailInput.addEventListener('input', () => {
+
+    /* REMOVE OLD ERROR */
+
+    const existingError =
+    emailInput.parentElement
+    .querySelector('.error-message');
+
+    if(existingError){
+
+        existingError.remove();
+    }
+
+    const email =
+    emailInput.value.trim();
+
+    const emailPattern =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in)$/;
+
+    /* SHOW ERROR ONLY WHEN USER TYPES */
+
+    if(
+        email.length > 0 &&
+        !emailPattern.test(email)
+    ){
+
+        showError(
+            emailInput,
+            'Email must end with .com or .in'
+        );
+    }
+
+});
+
+
+/* SHOW ERROR FUNCTION */
+
+function showError(input, message){
+
+    const error =
+    document.createElement('small');
+
+    error.className = 'error-message';
+
+    error.style.color = 'red';
+
+    error.style.marginTop = '5px';
+
+    error.innerText = message;
+
+    input.parentElement.appendChild(error);
+}
+</script>
 </body>
 </html>
